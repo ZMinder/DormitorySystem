@@ -20,7 +20,6 @@ export const constantRoutes = [
             {path: '/selfInfo', name: 'SelfInfo', component: () => import("@/views/SelfInfo")},
         ]
     },
-
 ]
 const router = createRouter({
     routes: constantRoutes,

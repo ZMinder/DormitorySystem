@@ -1,92 +1,64 @@
-import weather from "@/components/weather";
-import Calender from "@/components/Calendar";
-import request from "@/utils/request";
-import home_echarts from "@/components/home_echarts";
+import axios from 'axios';
 
 export default {
-    name: "Home",
-    components: {
-        weather,
-        Calender,
-        home_echarts,
-    },
     data() {
         return {
-            studentNum: "",
-            haveRoomStudentNum: "",
-            detailDialog: false,
-            repairOrderNum: "",
-            noFullRoomNum: "",
-            activities: [],
+            weatherData: {
+                temperature: '',
+                condition: '',
+                location: ''
+            }
         };
     },
-    created() {
-        this.getHomePageNotice();
-        this.getStuNum();
-        this.getHaveRoomNum();
-        this.getOrderNum();
-        this.getNoFullRoom();
-    },
     methods: {
-        async getStuNum() {
-            request.get("/stu/stuNum").then((res) => {
-                if (res.code === "0") {
-                    this.studentNum = res.data;
-                } else {
-                    ElMessage({
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
-            });
+        getWeatherDescription(code) {
+            console.log(code)
+            const weatherConditions = {
+                0: '晴朗',
+                1: '少云',
+                2: '局部多云',
+                3: '多云',
+                45: '雾',
+                48: '薄雾',
+                51: '小雨',
+                53: '中雨',
+                55: '大雨',
+                95: '雷阵雨',
+                96: '雷阵雨伴有冰雹'
+            };
+            return weatherConditions[code] || '未知天气状况';
         },
-        async getHaveRoomNum() {
-            request.get("/room/selectHaveRoomStuNum").then((res) => {
-                if (res.code === "0") {
-                    this.haveRoomStudentNum = res.data;
-                } else {
-                    ElMessage({
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
-            });
+        async fetchWeatherData(latitude, longitude) {
+            const url = `/weather-api/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
+            try {
+                const response = await axios.get(url);
+                console.log(response.data)
+                this.weatherData = {
+                    location: `${latitude}, ${longitude}`,  // 这里可以换成具体的地名，如果您有解析位置的方式
+                    temperature: response.data.current_weather.temperature,
+                    condition: response.data.current_weather.weathercode
+                };
+            } catch (error) {
+                console.error('获取天气数据出错:', error);
+            }
         },
-        async getOrderNum() {
-            request.get("/repair/orderNum").then((res) => {
-                if (res.code === "0") {
-                    this.repairOrderNum = res.data;
-                } else {
-                    ElMessage({
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
-            });
-        },
-        async getNoFullRoom() {
-            request.get("/room/noFullRoom").then((res) => {
-                if (res.code === "0") {
-                    this.noFullRoomNum = res.data;
-                } else {
-                    ElMessage({
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
-            });
-        },
-        async getHomePageNotice() {
-            request.get("/notice/homePageNotice").then((res) => {
-                if (res.code === "0") {
-                    this.activities = res.data;
-                } else {
-                    ElMessage({
-                        message: res.msg,
-                        type: "error",
-                    });
-                }
-            });
-        },
+
+        getUserLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(
+                    position => {
+                        this.fetchWeatherData(position.coords.latitude, position.coords.longitude);
+                    },
+                    error => {
+                        console.error('获取地理位置失败:', error);
+                    }
+                );
+            } else {
+                console.error('浏览器不支持地理定位');
+            }
+        }
     },
-};
+    mounted() {
+        this.getUserLocation();
+    }
+}

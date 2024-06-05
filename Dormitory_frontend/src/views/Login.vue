@@ -23,9 +23,9 @@
             </el-form>
         </div>
     </div>
-    <div class="footer">
-        ©Copyright 1958-2024 江西理工大学
-    </div>
+<!--    <div class="footer">-->
+<!--        ©Copyright 1958-2024 江西理工大学-->
+<!--    </div>-->
 </template>
 <script src="@/assets/js/Login.js"></script>
 <style scoped>
