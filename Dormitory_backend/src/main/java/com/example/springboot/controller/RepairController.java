@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/repair")
+@CrossOrigin
 public class RepairController {
 
     @Resource

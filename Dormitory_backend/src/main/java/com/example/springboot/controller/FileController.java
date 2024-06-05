@@ -22,6 +22,7 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/files")
+@CrossOrigin
 public class FileController {
 
     private static final String ip = "http://localhost";

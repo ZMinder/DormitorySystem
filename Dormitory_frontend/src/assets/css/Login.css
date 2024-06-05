@@ -1,21 +1,33 @@
 .login-container {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background-image: url("../background.jpg");
+    background-size: cover;
+    background-position: center;
 }
-@keyframes myanimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 0% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+
+.login-box {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.login-title {
+    color: #333;
+    font-size: 30px;
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.el-input, .el-radio {
+    margin-bottom: 20px;
+}
+
+.login-button {
+    width: 100%;
+    font-size: 18px;
 }

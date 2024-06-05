@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/stu")
+@CrossOrigin
 public class StudentController {
 
     @Resource

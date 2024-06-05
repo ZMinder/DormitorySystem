@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin
 public class AdminController {
 
     String uid = new UID().produceUID();

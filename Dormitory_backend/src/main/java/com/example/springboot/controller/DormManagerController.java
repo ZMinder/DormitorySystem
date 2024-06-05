@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/dormManager")
+@CrossOrigin
 public class DormManagerController {
 
     @Resource

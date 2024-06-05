@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 
 @RestController
 @RequestMapping("/adjustRoom")
+@CrossOrigin
 public class AdjustRoomController {
 
     @Resource

@@ -1,5 +1,5 @@
 .hero-image {
-    background-image:url("../home_background.jpg"); /* 替换成您的图片URL */
+    background-image:url("../background.jpg"); /* 替换成您的图片URL */
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;

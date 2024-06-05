@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/building")
+@CrossOrigin
 public class DormBuildController {
 
     @Resource
