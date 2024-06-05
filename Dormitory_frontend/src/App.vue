@@ -1,5 +1,5 @@
 <template>
-    <div class="app" v-title title="宿舍管理系统"></div>
+  <div class="app" v-title title="宿舍管理系统"></div>
   <div>
     <router-view/>
   </div>
