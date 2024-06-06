@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/room")
-@CrossOrigin
 public class DormRoomController {
 
     @Resource

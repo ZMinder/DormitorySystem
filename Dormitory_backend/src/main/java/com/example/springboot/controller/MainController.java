@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/main")
-@CrossOrigin
 public class MainController {
 
     /**

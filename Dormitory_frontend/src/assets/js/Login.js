@@ -31,7 +31,7 @@ export default {
             this.$refs.form.validate((valid) => {
                 if (valid) {
                     this.identity = this.form.identity;
-                    request.post("/" + this.identity + "/home", this.form).then((res) => {
+                    request.post("/" + this.identity + "/login", this.form).then((res) => {
                         if (res.code === "0") {
                             ElMessage({
                                 message: "登陆成功",

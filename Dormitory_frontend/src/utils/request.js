@@ -9,7 +9,8 @@ let token = '';
 // 可以自请求发送前对请求做一些处理
 // 比如统一加token，对请求参数统一加密
 //添加一个请求拦截器
-axios.interceptors.request.use(function (config) {
+request.interceptors.request.use(function (config) {
+    console.log("interceptors"+config.url)
     let user = JSON.parse(window.sessionStorage.getItem('access-user'));
     if (user) {
         token = user.token;
