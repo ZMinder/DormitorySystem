@@ -92,20 +92,6 @@ public class StudentController {
     }
 
     /**
-     * 主页顶部：学生统计
-     */
-    @GetMapping("/stuNum")
-    public Result<?> stuNum() {
-        int num = studentService.stuNum();
-        if (num > 0) {
-            return Result.success(num);
-        } else {
-            return Result.error("-1", "查询失败");
-        }
-    }
-
-
-    /**
      * 床位信息，查询是否存在该学生
      * 床位信息，查询床位上的学生信息
      */

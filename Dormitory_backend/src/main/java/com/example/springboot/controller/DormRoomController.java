@@ -71,19 +71,6 @@ public class DormRoomController {
     }
 
     /**
-     * 首页顶部：空宿舍统计
-     */
-    @GetMapping("/noFullRoom")
-    public Result<?> noFullRoom() {
-        int num = dormRoomService.notFullRoom();
-        if (num >= 0) {
-            return Result.success(num);
-        } else {
-            return Result.error("-1", "空宿舍查询失败");
-        }
-    }
-
-    /**
      * 删除床位学生信息
      */
     @DeleteMapping("/delete/{bedName}/{dormRoomId}/{calCurrentNum}")
@@ -106,37 +93,6 @@ public class DormRoomController {
             return Result.success();
         } else {
             return Result.error("-1", "该学生已有宿舍");
-        }
-    }
-
-    /**
-     * 主页 住宿人数
-     */
-    @GetMapping("/selectHaveRoomStuNum")
-    public Result<?> selectHaveRoomStuNum() {
-        Long count = dormRoomService.selectHaveRoomStuNum();
-        if (count >= 0) {
-            return Result.success(count);
-        } else {
-            return Result.error("-1", "查询首页住宿人数失败");
-        }
-    }
-
-    /**
-     * 住宿分布人数
-     */
-    @GetMapping("/getEachBuildingStuNum/{num}")
-    public Result<?> getEachBuildingStuNum(@PathVariable int num) {
-        ArrayList<Long> arrayList = new ArrayList();
-        for (int i = 1; i <= num; i++) {
-            Long eachBuildingStuNum = dormRoomService.getEachBuildingStuNum(i);
-            arrayList.add(eachBuildingStuNum);
-        }
-
-        if (!arrayList.isEmpty()) {
-            return Result.success(arrayList);
-        } else {
-            return Result.error("-1", "获取人数失败");
         }
     }
 

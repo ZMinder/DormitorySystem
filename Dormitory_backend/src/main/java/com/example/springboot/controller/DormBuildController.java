@@ -70,17 +70,4 @@ public class DormBuildController {
             return Result.error("-1", "查询失败");
         }
     }
-
-    /**
-     * 首页Echarts 获取楼宇信息
-     */
-    @GetMapping("/getBuildingName")
-    public Result<?> getBuildingName() {
-        List<DormBuild> buildingName = dormBuildService.getBuildingId();
-        List<Integer> buildingId = buildingName.stream()
-                .map(dormBuildId -> dormBuildId.getDormBuildId())
-                .collect(Collectors.toList());
-        return !buildingId.isEmpty() ?
-                Result.success(buildingId) : Result.error("-1", "查询失败");
-    }
 }
