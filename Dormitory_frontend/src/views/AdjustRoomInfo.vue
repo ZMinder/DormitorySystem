@@ -17,7 +17,10 @@
           </div>
         </div> 
         <!-- 表格 -->
-        <el-table v-loading="loading" :data="tableData" border max-height="705" style="width: 100%">
+        <el-table v-loading="loading"
+                  :data="tableData"
+                  border max-height="705"
+                  style="width: 100%">
           <el-table-column label="#" type="index"/>
           <el-table-column label="学号" prop="username" sortable width="100px"/>
           <el-table-column label="姓名" prop="name" width="100px"/>
@@ -52,7 +55,7 @@
             <template #default="scope">
               <el-button v-if="scope.row.state==='通过' ||scope.row.state==='驳回'" icon="more-filled" type="default"
                          @click="showDetail(scope.row)"></el-button>
-              <el-button v-if="scope.row.state!=='通过' " icon="Edit" type="primary"
+              <el-button v-if="scope.row.state==='未处理' " icon="Edit" type="primary"
                          @click="handleEdit(scope.row)"></el-button>
               <el-popconfirm title="确认删除？" @confirm="handleDelete(scope.row.id)">
                 <template #reference>

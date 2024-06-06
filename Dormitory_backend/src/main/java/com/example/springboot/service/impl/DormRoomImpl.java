@@ -208,7 +208,7 @@ public class DormRoomImpl extends ServiceImpl<DormRoomMapper, DormRoom> implemen
     public DormRoom checkRoomState(Integer dormRoomId) {
         QueryWrapper qw = new QueryWrapper();
         qw.eq("dormroom_id", dormRoomId);
-        qw.lt("current_capacity", 4);
+        qw.lt("current_capacity", 4);//添加小于4的条件
         DormRoom dormRoom = dormRoomMapper.selectOne(qw);
         return dormRoom;
     }

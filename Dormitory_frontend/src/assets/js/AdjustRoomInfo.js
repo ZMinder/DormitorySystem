@@ -68,11 +68,6 @@ export default {
     },
     created() {
         this.load();
-        this.loading = true;
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false;
-        }, 1000);
     },
     methods: {
         async load() {
@@ -91,33 +86,15 @@ export default {
         },
         reset() {
             this.search = ''
-            request.get("/adjustRoom/find", {
-                params: {
-                    pageNum: 1,
-                    pageSize: this.pageSize,
-                    search: this.search,
-                },
-            }).then((res) => {
-                console.log(res);
-                this.tableData = res.data.records;
-                this.total = res.data.total;
-                this.loading = false;
-            });
+            this.currentPage = 1
+            this.load()
         },
         filterTag(value, row) {
             return row.gender === value;
         },
-        judgeOrderState(state) {
-            if (state === '通过') {
-                this.orderState = true
-            } else if (state === '驳回') {
-                this.orderState = false
-            }
-        },
         save() {
             this.$refs.form.validate((valid) => {
                 if (valid) {
-                    this.judgeOrderState(this.form.state)
                     //修改
                     request.put("/adjustRoom/update/" + this.orderState, this.form).then((res) => {
                         console.log(res);
