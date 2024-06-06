@@ -1,58 +1,58 @@
 import request from "@/utils/request";
 
 const {ElMessage} = require("element-plus");
+
 export default {
-    name: "selfInfo",
+    name: "selfInfo",  // 组件名称
     data() {
-        // 手机号验证
+        // 手机号验证规则
         const checkPhone = (rule, value, callback) => {
-            const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/;
+            const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/; // 手机号格式正则表达式
             if (!value) {
-                return callback(new Error("电话号码不能为空"));
+                return callback(new Error("电话号码不能为空")); // 验证手机号是否为空
             }
-            setTimeout(() => {
-                if (!Number.isInteger(+value)) {
-                    callback(new Error("请输入数字值"));
+            if (!Number.isInteger(+value)) {
+                callback(new Error("请输入数字值")); // 验证是否为数字
+            } else {
+                if (phoneReg.test(value)) {
+                    callback(); // 手机号格式正确
                 } else {
-                    if (phoneReg.test(value)) {
-                        callback();
-                    } else {
-                        callback(new Error("电话号码格式不正确"));
-                    }
+                    callback(new Error("电话号码格式不正确")); // 手机号格式不正确
                 }
-            }, 100);
+            }
         };
+        // 密码验证规则
         const checkPass = (rule, value, callback) => {
-            if (!this.editJudge) {
+            if (!this.editJudge) { // 如果是编辑状态
                 console.log("验证");
                 if (value == "") {
-                    callback(new Error("请再次输入密码"));
+                    callback(new Error("请再次输入密码")); // 验证密码是否为空
                 } else if (value !== this.form.password) {
-                    callback(new Error("两次输入密码不一致!"));
+                    callback(new Error("两次输入密码不一致!")); // 验证两次密码是否一致
                 } else {
                     callback();
                 }
             } else {
                 console.log("不验证");
-                callback();
+                callback(); // 不在编辑状态时不验证密码
             }
         };
         return {
-            showpassword: true,
-            image: "",
-            editJudge: true,
-            disabled: true,
-            dialogVisible: false,
-            identity: "",
-            username: "",
-            name: "",
-            gender: "",
-            age: "",
-            phoneNum: "",
-            email: "",
-            targetURL: "",
-            avatar: "",
-            form: {
+            showpassword: true, // 是否显示密码
+            image: "", // 头像图片
+            editJudge: true, // 密码编辑状态判断
+            disabled: true, // 是否禁用表单
+            dialogVisible: false, // 对话框是否可见
+            identity: "", // 用户身份
+            username: "", // 用户名
+            name: "", // 姓名
+            gender: "", // 性别
+            age: "", // 年龄
+            phoneNum: "", // 手机号
+            email: "", // 邮箱
+            targetURL: "", // 目标URL
+            avatar: "", // 头像
+            form: { // 表单数据
                 username: "",
                 name: "",
                 gender: "",
@@ -103,21 +103,21 @@ export default {
                 checkPass: [{validator: checkPass, trigger: "blur"}],
             },
             display: {
-                display: "none",
+                display: "none", // 控制显示状态
             },
             imgDisplay: {
-                display: "none",
+                display: "none", // 控制图片显示状态
             },
         };
     },
     created() {
-        this.load();
-        this.find();
-        this.init(this.avatar);
+        this.load(); // 组件创建后加载数据
+        this.find(); // 查询数据
+        this.init(this.avatar); // 初始化头像
     },
     methods: {
-        //获取个人信息页面信息
         load() {
+            // 从sessionStorage获取用户信息并加载到表单
             this.form = JSON.parse(sessionStorage.getItem("user"));
             this.identity = JSON.parse(sessionStorage.getItem("identity"));
             this.username = this.form.username;
@@ -128,17 +128,15 @@ export default {
             this.email = this.form.email;
             this.avatar = this.form.avatar;
         },
-        //查询数据，更新session
         find() {
-            this.form = JSON.parse(sessionStorage.getItem("user"));
+            // 查询数据并更新session
             request.post("/" + this.identity + "/login", this.form).then((res) => {
-                //更新sessionStorage
                 window.sessionStorage.setItem("user", JSON.stringify(res.data));
-                //更新页面数据
                 this.load();
             });
         },
         Edit() {
+            // 开启编辑模式，显示对话框
             this.dialogVisible = true;
             this.$nextTick(() => {
                 this.$refs.form.resetFields();
@@ -146,30 +144,28 @@ export default {
             });
         },
         cancel() {
+            // 取消编辑，重置表单和状态
             this.$refs.form.resetFields();
-            this.display = {display: "none"};
-            this.showpassword = true;
-            this.editJudge = true;
-            this.disabled = true;
-            this.dialogVisible = false;
+            this.display = {display: "none"}; // 重置确认密码显示状态
+            this.showpassword = true; // 密码可见性重置
+            this.editJudge = true; // 重置编辑状态标志
+            this.disabled = true; // 禁用表单输入
+            this.dialogVisible = false; // 关闭对话框
         },
         async save() {
+            // 保存修改后的用户信息
             this.$refs.form.validate(async (valid) => {
                 if (valid) {
-                    //修改
                     await request.put("/" + this.identity + "/update", this.form).then((res) => {
                         if (res.code === "0") {
                             ElMessage({
                                 message: "修改成功",
                                 type: "success",
                             });
-                            //更新sessionStorage
-                            window.sessionStorage.setItem(
-                                "user",
-                                JSON.stringify(this.form)
-                            );
-                            this.find();
-                            this.dialogVisible = false;
+                            // 更新本地存储
+                            window.sessionStorage.setItem("user", JSON.stringify(this.form));
+                            this.find(); // 重新加载数据
+                            this.dialogVisible = false; // 关闭对话框
                         } else {
                             ElMessage({
                                 message: res.msg,
@@ -181,20 +177,21 @@ export default {
             });
         },
         EditPass() {
+            // 开启或关闭密码编辑模式
             if (this.editJudge) {
-                this.display = {display: "flex"};
-                this.showpassword = false;
-                this.disabled = false;
-                this.editJudge = false;
+                this.display = {display: "flex"}; // 显示密码输入框
+                this.showpassword = false; // 允许输入新密码
+                this.disabled = false; // 启用密码输入框
+                this.editJudge = false; // 标记为编辑模式
             } else {
-                this.display = {display: "none"};
-                this.showpassword = true;
-                this.editJudge = true;
-                this.disabled = true;
+                this.display = {display: "none"}; // 隐藏密码输入框
+                this.showpassword = true; // 隐藏新密码输入
+                this.editJudge = true; // 退出编辑模式
+                this.disabled = true; // 禁用密码输入
             }
         },
-        //发送请求，获取头像
         async init(data) {
+            // 初始化头像显示
             if (data === null || data === "") {
                 console.log("用户未设置头像");
                 this.imgDisplay = {display: "none"};
@@ -203,7 +200,7 @@ export default {
                 console.log("头像名称：" + data);
                 await request.get("/files/initAvatar/" + data).then((res) => {
                     if (res.code === "0") {
-                        this.image = res.data.data;
+                        this.image = res.data.data; // 加载头像数据
                     } else {
                         ElMessage({
                             message: res.msg,
@@ -214,6 +211,7 @@ export default {
             }
         },
         async uploadSuccess() {
+            // 处理头像上传成功
             this.form = JSON.parse(sessionStorage.getItem("user"));
             await request.post("/files/uploadAvatar/" + this.identity, this.form).then((res) => {
                 if (res.code === "0") {
@@ -221,11 +219,10 @@ export default {
                         message: "设置成功",
                         type: "success",
                     });
-                    //获取头像文件名
-                    this.avatar = res.data;
+                    this.avatar = res.data; // 更新头像文件名
                     console.log("上传成功：" + this.avatar);
-                    this.find();
-                    this.init(this.avatar);
+                    this.find(); // 更新信息
+                    this.init(this.avatar); // 重新初始化头像
                 } else {
                     ElMessage({
                         message: res.msg,

@@ -10,11 +10,11 @@
           <div>
             <el-upload :on-success="uploadSuccess" :show-file-list="false"
                        action="http://localhost:9090/files/upload/"
-                       class="upload-demo"
-            >
+                       class="upload-demo">
               <div class="AvatarDiv">
                 <el-avatar icon="UserFilled" style="width: 80px; height: 80px"></el-avatar>
-                <img :src="'data:image;base64,' + image" :style="imgDisplay"
+                <img :src="'data:image;base64,' + image"
+                     :style="imgDisplay"
                      style="width: 80px; height: 80px; border-radius: 40px"/>
                 <div class="editImg">
                   更换头像
@@ -25,7 +25,10 @@
               </div>
             </el-upload>
           </div>
-          <el-descriptions :column="1" :size="large" border style="min-width: 500px" title="">
+          <el-descriptions :column="1"
+                           :size="large"
+                           border
+                           style="min-width: 500px" title="">
             <el-descriptions-item>
               <template #label>
                 <div>
@@ -99,13 +102,13 @@
             </el-button>
           </el-tooltip>
         </div>
-        <!-- <div class="img" style="margin-left: 130px ">
-            <img alt="" src=""/>
-        </div> -->
       </div>
       <div>
         <!--      弹窗-->
-        <el-dialog v-model="dialogVisible" title="操作" width="30%" @close="cancel">
+        <el-dialog v-model="dialogVisible"
+                   title="操作"
+                   width="30%"
+                   @close="cancel">
           <el-form ref="form" :model="form" :rules="rules" label-width="120px">
             <el-form-item label="账号" prop="username">
               <el-input v-model="form.username" disabled style="width: 80%"></el-input>
@@ -153,34 +156,4 @@
 </template>
 <script src="@/assets/js/SelfInfo.js"></script>
 <style scoped>@import '../assets/css/SelfInfo.css';
-
-.login-container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  background: linear-gradient(
-      135deg,
-      hsl(170deg, 80%, 70%),
-      hsl(190deg, 80%, 70%),
-      hsl(250deg, 80%, 70%),
-      hsl(320deg, 80%, 70%),
-      hsl(320deg, 80%, 70%),
-      hsl(250deg, 80%, 70%),
-      hsl(190deg, 80%, 70%),
-      hsl(190deg, 80%, 70%),
-      hsl(170deg, 80%, 70%)
-  );
-  background-size: 600%;
-  animation: myanimation 15s linear infinite;
-}
-
-@keyframes myanimation {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 100% 100%;
-  }
-}</style>
+</style>

@@ -1,5 +1,5 @@
 .img {
-
+    /* 如果 .img 被使用，提供额外的样式 */
 }
 
 .editImg {
@@ -11,10 +11,11 @@
     justify-content: center;
     text-align: center;
     font-size: 14px;
-    line-height: 79px;
-    color: #cccccc;
+    color: #FFFFFF; /* 改进的可视性 */
     position: absolute;
-    left: 261px;
+    top: 50%; /* 调整位置垂直居中 */
+    left: 50%; /* 调整位置水平居中 */
+    transform: translate(-50%, -50%); /* 精确居中元素 */
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
 }
@@ -24,11 +25,12 @@
     height: 80px;
     border-radius: 40px;
     display: flex;
-    margin: 0 auto;
+    margin: 0 auto; /* 水平居中 */
+    position: relative; /* 为绝对定位的 .editImg 提供必要的定位基准 */
 }
 
 .AvatarDiv:hover .editImg {
-    display: block;
+    display: flex; /* 改为 flex 以保持文本居中对齐 */
     cursor: pointer;
 }
 
@@ -36,5 +38,39 @@
     display: grid;
     width: 80px;
     height: 80px;
-    margin: 40px auto;
+    margin: 40px auto; /* 水平居中 */
+}
+
+.login-container {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex; /* 使用 flexbox 实现内容居中 */
+    align-items: center; /* 垂直居中 */
+    justify-content: center; /* 水平居中 */
+    background: linear-gradient(
+            135deg,
+            hsl(170deg, 80%, 70%),
+            hsl(190deg, 80%, 70%),
+            hsl(250deg, 80%, 70%),
+            hsl(320deg, 80%, 70%),
+            hsl(320deg, 80%, 70%),
+            hsl(250deg, 80%, 70%),
+            hsl(190deg, 80%, 70%),
+            hsl(190deg, 80%, 70%),
+            hsl(170deg, 80%, 70%)
+    );
+    background-size: 600%;
+    animation: myanimation 15s linear infinite;
+}
+
+@keyframes myanimation {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 100% 100%;
+    }
 }
