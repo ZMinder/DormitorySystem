@@ -35,7 +35,6 @@ export default {
             loading: true,
             dialogVisible: false,
             detailDialog: false,
-            search: "",
             currentPage: 1,
             pageSize: 10,
             total: 0,
@@ -70,19 +69,15 @@ export default {
     },
     created() {
         this.load();
-        this.loading = true;
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false;
-        }, 1000);
     },
     methods: {
         async load() {
+            let user = JSON.parse(sessionStorage.getItem("user"))
             request.get("/adjustRoom/find", {
                 params: {
                     pageNum: this.currentPage,
                     pageSize: this.pageSize,
-                    search: this.search,
+                    search: user.username,
                 },
             }).then((res) => {
                 this.tableData = res.data.records;
@@ -117,21 +112,11 @@ export default {
                 return 4;
             }
         },
-        judgeOrderState(state) {
-            if (state === '通过') {
-                this.orderState = true
-            } else if (state === '驳回') {
-                this.orderState = false
-            } else if (state === '未处理') {
-                this.orderState = false
-            }
-        },
         save() {
             this.$refs.form.validate((valid) => {
                 if (valid) {
                     if (this.judgeOption === false) {
                         //修改
-                        this.judgeOrderState(this.form.state)
                         request.put("/adjustRoom/update/" + this.orderState, this.form).then((res) => {
                             if (res.code === "0") {
                                 ElMessage({
