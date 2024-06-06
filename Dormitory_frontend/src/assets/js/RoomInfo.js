@@ -22,20 +22,20 @@ export default {
             });
         };
         return {
-            bedNum: 0,
-            havePeopleNum: 0,
-            loading: true,
-            disabled: false,
-            judge: false,
-            dialogVisible: false,
-            bedDialog: false,
-            stuInfoDialog: false,
-            bedName: "",
-            search: "",
-            currentPage: 1,
-            pageSize: 10,
-            total: 0,
-            tableData: [],
+            bedNum: 0,  // 当前操作的床位编号
+            havePeopleNum: 0,  // 房间已有人数
+            loading: true,  // 加载状态，控制表格等待动画
+            disabled: false,  // 控制表单字段是否禁用
+            judge: false,  // 用于判断是新增操作还是编辑操作
+            dialogVisible: false,  // 控制主对话框的显示
+            bedDialog: false,  // 控制床位分配对话框的显示
+            stuInfoDialog: false,  // 控制学生信息对话框的显示
+            bedName: "",  // 当前操作的床位名称
+            search: "",  // 搜索关键字
+            currentPage: 1,  // 当前页码
+            pageSize: 10,  // 每页显示条数
+            total: 0,  // 数据总条数
+            tableData: [],  // 表格数据
             form: {
                 dormRoomId: "",
                 dormBuildId: "",
@@ -77,11 +77,6 @@ export default {
     },
     created() {
         this.load();
-        this.loading = true;
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false;
-        }, 1000);
     },
     methods: {
         async load() {
@@ -99,18 +94,7 @@ export default {
         },
         reset() {
             this.search = ''
-            request.get("/room/find", {
-                params: {
-                    pageNum: 1,
-                    pageSize: this.pageSize,
-                    search: this.search,
-                },
-            }).then((res) => {
-                console.log(res);
-                this.tableData = res.data.records;
-                this.total = res.data.total;
-                this.loading = false;
-            });
+            this.currentPage = 1
         },
         filterTag(value, row) {
             return row.currentCapacity === value;
@@ -336,12 +320,7 @@ export default {
             //更新当前房间人数
             this.calCurrentNum(info);
             request.delete(
-                "/room/delete/" +
-                bedName +
-                "/" +
-                info.dormRoomId +
-                "/" +
-                this.havePeopleNum
+                `/room/delete/${bedName}/${info.dormRoomId}/${this.havePeopleNum}`
             ).then((res) => {
                 if (res.code === "0") {
                     ElMessage({

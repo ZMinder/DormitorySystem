@@ -100,8 +100,7 @@
                     autosize
                     clearable
                     style="width: 80%"
-                    type="textarea"
-                ></el-input>
+                    type="textarea"></el-input>
               </el-form-item>
               <el-form-item :style="finishTime" label="订单状态" prop="state">
                 <el-radio v-model="form.state" label="完成">完成</el-radio>
@@ -115,8 +114,7 @@
                     placeholder="选择时间"
                     style="width: 48%"
                     type="datetime"
-                    value-format="YYYY-MM-DD HH:mm:ss"
-                ></el-date-picker>
+                    value-format="YYYY-MM-DD HH:mm:ss"></el-date-picker>
               </el-form-item>
               <el-form-item :style="finishTime" label="订单完成时间" prop="orderFinishTime" style="margin-top: 27px">
                 <el-date-picker

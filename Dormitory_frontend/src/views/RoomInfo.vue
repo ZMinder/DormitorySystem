@@ -11,9 +11,19 @@
         <div style="margin: 10px 0">
           <!--    搜索区-->
           <div style="margin: 10px 0">
-            <el-input v-model="search" clearable placeholder="请输入房间号" prefix-icon="Search" style="width: 20%"/>
-            <el-button icon="Search" style="margin-left: 5px" type="primary" @click="load"></el-button>
-            <el-button icon="refresh-left" style="margin-left: 10px" type="default" @click="reset"></el-button>
+            <el-input v-model="search"
+                      clearable
+                      placeholder="请输入房间号"
+                      prefix-icon="Search"
+                      style="width: 20%"/>
+            <el-button icon="Search"
+                       style="margin-left: 5px"
+                       type="primary"
+                       @click="load"></el-button>
+            <el-button icon="refresh-left"
+                       style="margin-left: 10px"
+                       type="default"
+                       @click="reset"></el-button>
             <div style="float: right">
               <el-tooltip content="添加" placement="top">
                 <el-button icon="plus" style="width: 50px" type="primary" @click="add"></el-button>
@@ -30,8 +40,9 @@
               <el-form inline label-position="left">
                 <el-form-item label="一号床位" class="item">
                   <template #default="scope">
-                    <el-tag v-if="props.row.firstBed != null" disable-transitions type="primary"
-                    >{{ props.row.firstBed }}
+                    <el-tag v-if="props.row.firstBed != null"
+                            disable-transitions
+                            type="primary">{{ props.row.firstBed }}
                     </el-tag>
                     <div class="el-form--inline-icon">
                       <el-icon v-if="props.row.firstBed == null" @click="plusIcon(1, props.row)">
@@ -179,8 +190,7 @@
               :total="total"
               layout="total, sizes, prev, pager, next, jumper"
               @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-          >
+              @current-change="handleCurrentChange">
           </el-pagination>
         </div>
         <!--      弹窗-->
@@ -244,7 +254,10 @@
             </template>
           </el-dialog>
           <!-- 学生信息弹窗-->
-          <el-dialog v-model="stuInfoDialog" title="学生信息" width="20%" @close="cancel">
+          <el-dialog v-model="stuInfoDialog"
+                     title="学生信息"
+                     width="20%"
+                     @close="cancel">
             <el-form ref="form" :model="form" label-width="120px">
               <el-form-item label="学号：" prop="username">
                 <template #default="scope">

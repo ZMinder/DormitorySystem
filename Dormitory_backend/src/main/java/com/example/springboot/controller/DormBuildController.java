@@ -83,9 +83,4 @@ public class DormBuildController {
         return !buildingId.isEmpty() ?
                 Result.success(buildingId) : Result.error("-1", "查询失败");
     }
-    //        if (!buildingId.isEmpty()) {
-//            return Result.success(buildingId);
-//        } else {
-//            return Result.error("-1", "查询失败");
-//        }
 }

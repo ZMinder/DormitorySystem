@@ -22,7 +22,6 @@ export default {
         return {
             buildTimeDisabled: true,
             loading: true,
-            disabled: false,
             judge: false,
             dialogVisible: false,
             detailDialog: false,
@@ -51,11 +50,6 @@ export default {
     },
     created() {
         this.load();
-        this.loading = true;
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false;
-        }, 1000);
     },
     methods: {
         async load() {
@@ -74,18 +68,8 @@ export default {
         },
         reset() {
             this.search = ''
-            request.get("/repair/find", {
-                params: {
-                    pageNum: 1,
-                    pageSize: this.pageSize,
-                    search: this.search,
-                },
-            }).then((res) => {
-                console.log(res);
-                this.tableData = res.data.records;
-                this.total = res.data.total;
-                this.loading = false;
-            });
+            this.currentPage = 1
+            this.load()
         },
         filterTag(value, row) {
             return row.state === value;
@@ -105,7 +89,6 @@ export default {
                 this.$refs.form.resetFields();
                 this.buildTimeDisabled = false;
                 this.finishTime = {display: "none"};
-                this.disabled = false;
                 this.form = {};
                 this.judge = false;
             });
@@ -167,7 +150,6 @@ export default {
                 this.$refs.form.resetFields();
                 // 生拷贝
                 this.form = JSON.parse(JSON.stringify(row));
-                this.disabled = true;
                 this.buildTimeDisabled = true;
                 this.finishTime = {display: "flex"};
             });
