@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="myRoom">
     <el-breadcrumb separator-icon="ArrowRight" style="margin: 16px">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>我的宿舍</el-breadcrumb-item>
@@ -136,9 +136,6 @@
               </el-descriptions-item>
             </el-descriptions>
           </div>
-        </div>
-        <div style="margin-left: 100px;margin-top: 85px">
-          <img alt="" src="../../public/myRoom.png" style="width: 600px">
         </div>
       </div>
     </el-card>

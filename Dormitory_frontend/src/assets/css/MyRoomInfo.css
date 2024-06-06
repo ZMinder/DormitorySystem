@@ -1,4 +1,50 @@
-.rightSpan {
-    display: inline-block;
-    width: 80px;
+/* 根元素样式，确保背景图填满整个视窗，并无重复 */
+.myRoom {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('../../../public/my_room.webp') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* 卡片样式，透明度降低以突出背景，边角圆滑，居中显示 */
+.el-card {
+    background-color: rgba(255, 255, 255, 0.5); /* 更淡的半透明白色背景 */
+    border-radius: 15px;
+    padding: 20px;
+    margin: auto;
+    max-width: 100%; /* 限制最大宽度，并使其居中 */
+}
+
+/* 描述列表样式调整，移除背景，增加字体大小并居中对齐 */
+.el-descriptions {
+    background-color: transparent;
+    font-size: 16px; /* 增大字体 */
+    text-align: center; /* 居中对齐 */
+}
+
+/* 逐项描述的间距和样式调整，增加下边距 */
+.el-descriptions-item {
+    margin-bottom: 20px; /* 增加间距使信息更加清晰 */
+}
+
+/* 标签样式调整，突出显示并调整间距 */
+.el-tag {
+    margin-right: 5px;
+    font-weight: bold;
+    font-size: 14px; /* 增大字体尺寸 */
+}
+
+/* 图片样式调整，确保图片大小适中，圆角处理 */
+img {
+    width: 50%;
+    border-radius: 10px;
+}
+
+/* 面包屑导航样式，适当增加透明度和边距调整，使其更加优雅 */
+.el-breadcrumb {
+    background-color: rgba(245, 245, 245, 0.3); /* 更淡的半透明背景 */
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px; /* 增加与卡片的距离 */
 }
