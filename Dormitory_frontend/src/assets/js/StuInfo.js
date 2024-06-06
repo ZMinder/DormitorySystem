@@ -124,18 +124,8 @@ export default {
         },
         reset() {
             this.search = ''
-            request.get("/stu/find", {
-                params: {
-                    pageNum: 1,
-                    pageSize: this.pageSize,
-                    search: this.search,
-                },
-            }).then((res) => {
-                console.log(res);
-                this.tableData = res.data.records;
-                this.total = res.data.total;
-                this.loading = false;
-            });
+            this.currentPage = 1
+            this.load()
         },
         filterTag(value, row) {
             return row.gender === value;

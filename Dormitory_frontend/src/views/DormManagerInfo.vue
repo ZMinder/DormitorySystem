@@ -11,9 +11,19 @@
         <div style="margin: 10px 0">
           <!--    搜索区-->
           <div style="margin: 10px 0">
-            <el-input v-model="search" clearable placeholder="请输入姓名" prefix-icon="Search" style="width: 20%"/>
-            <el-button icon="Search" style="margin-left: 5px" type="primary" @click="load"></el-button>
-            <el-button icon="refresh-left" style="margin-left: 10px" type="default" @click="reset"></el-button>
+            <el-input v-model="search"
+                      clearable
+                      placeholder="请输入姓名"
+                      prefix-icon="Search"
+                      style="width: 20%"/>
+            <el-button icon="Search"
+                       style="margin-left: 5px"
+                       type="primary"
+                       @click="load"></el-button>
+            <el-button icon="refresh-left"
+                       style="margin-left: 10px"
+                       type="default"
+                       @click="reset"></el-button>
             <div style="float: right">
               <el-tooltip content="添加" placement="top">
                 <el-button icon="plus" style="width: 50px" type="primary" @click="add"></el-button>
@@ -22,7 +32,12 @@
           </div>
         </div>
         <!--    表格-->
-        <el-table v-loading="loading" :data="tableData" border max-height="705" style="width: 100%">
+        <el-table
+            v-loading="loading"
+            :data="tableData"
+            border
+            max-height="705"
+            style="width: 100%">
           <el-table-column label="#" type="index"/>
           <el-table-column label="账号" prop="username" sortable/>
           <el-table-column label="姓名" prop="name"/>
@@ -32,7 +47,7 @@
               { text: '男', value: '男' },
               { text: '女', value: '女' },
             ]"
-              filter-placement="bottom-end"
+              filter-placement="bottom-start"
               label="性别"
               prop="gender"
           />
@@ -67,8 +82,15 @@
         </div>
         <div>
           <!--      弹窗-->
-          <el-dialog v-model="dialogVisible" title="操作" width="30%" @close="cancel">
-            <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+          <el-dialog
+              v-model="dialogVisible"
+              title="操作"
+              width="30%"
+              @close="cancel">
+            <el-form ref="form"
+                     :model="form"
+                     :rules="rules"
+                     label-width="120px">
               <el-form-item label="账号" prop="username">
                 <el-input v-model="form.username" :disabled="judgeAddOrEdit" style="width: 80%"></el-input>
               </el-form-item>

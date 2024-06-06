@@ -12,17 +12,15 @@ export default {
             if (!value) {
                 return callback(new Error("电话号码不能为空"));
             }
-            setTimeout(() => {
-                if (!Number.isInteger(+value)) {
-                    callback(new Error("请输入数字值"));
+            if (!Number.isInteger(+value)) {
+                callback(new Error("请输入数字值"));
+            } else {
+                if (phoneReg.test(value)) {
+                    callback();
                 } else {
-                    if (phoneReg.test(value)) {
-                        callback();
-                    } else {
-                        callback(new Error("电话号码格式不正确"));
-                    }
+                    callback(new Error("电话号码格式不正确"));
                 }
-            }, 100);
+            }
         };
         const checkPass = (rule, value, callback) => {
             if (!this.editJudge) {
@@ -42,10 +40,9 @@ export default {
         return {
             showpassword: true,
             editJudge: true,
-            judgeAddOrEdit: true,
+            judgeAddOrEdit: true,//false表示新增
             loading: true,
             disabled: false,
-            judge: false,
             dialogVisible: false,
             search: "",
             currentPage: 1,
@@ -114,11 +111,6 @@ export default {
     },
     created() {
         this.load();
-        this.loading = true;
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false;
-        }, 1000);
     },
     methods: {
         async load() {
@@ -137,18 +129,8 @@ export default {
         },
         reset() {
             this.search = ''
-            request.get("/dormManager/find", {
-                params: {
-                    pageNum: 1,
-                    pageSize: this.pageSize,
-                    search: this.search,
-                },
-            }).then((res) => {
-                console.log(res);
-                this.tableData = res.data.records;
-                this.total = res.data.total;
-                this.loading = false;
-            });
+            this.currentPage = 1
+            this.load()
         },
         filterTag(value, row) {
             return row.gender === value;
@@ -161,13 +143,12 @@ export default {
                 this.editDisplay = {display: "none"};
                 this.disabled = false;
                 this.form = {};
-                this.judge = false;
             });
         },
         save() {
             this.$refs.form.validate(async (valid) => {
                 if (valid) {
-                    if (this.judge === false) {
+                    if (this.judgeAddOrEdit === false) {
                         //新增
                         request.post("/dormManager/add", this.form).then((res) => {
                             console.log(res);
@@ -232,9 +213,6 @@ export default {
         },
         handleEdit(row) {
             //修改
-            //判断操作类型
-            this.judge = true;
-            // 生拷贝
             this.dialogVisible = true;
             this.$nextTick(() => {
                 this.$refs.form.resetFields();
