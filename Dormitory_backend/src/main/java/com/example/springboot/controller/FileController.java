@@ -12,22 +12,18 @@ import com.example.springboot.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Base64;
-
-
 import javax.annotation.Resource;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Base64;
 
 @RestController
 @RequestMapping("/files")
 public class FileController {
 
-    private static final String ip = "http://localhost";
     static String rootFilePath = System.getProperty("user.dir") + "/springboot/src/main/resources/files/";
     static String originalFilename = "";
-    private String port = "9090";
     @Resource
     private StudentService studentService;
 
@@ -44,7 +40,6 @@ public class FileController {
     public Result<?> upload(MultipartFile file) throws IOException {
         //获取文件名
         originalFilename = file.getOriginalFilename();
-        System.out.println(originalFilename);
         //获取文件尾缀
         String fileType = originalFilename.substring(originalFilename.lastIndexOf("."), originalFilename.length());
 
@@ -132,8 +127,6 @@ public class FileController {
         byte[] fileByte = bos.toByteArray();
 
         //进行base64编码
-//        BASE64Encoder encoder = new BASE64Encoder();
-        //        String data = encoder.encode(fileByte);
 
         Base64.Encoder encoder = Base64.getEncoder();
         String data = encoder.encodeToString(fileByte);

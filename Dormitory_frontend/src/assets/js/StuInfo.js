@@ -11,17 +11,15 @@ export default {
             if (!value) {
                 return callback(new Error("电话号码不能为空"));
             }
-            setTimeout(() => {
-                if (!Number.isInteger(+value)) {
-                    callback(new Error("请输入数字值"));
+            if (!Number.isInteger(+value)) {
+                callback(new Error("请输入数字值"));
+            } else {
+                if (phoneReg.test(value)) {
+                    callback();
                 } else {
-                    if (phoneReg.test(value)) {
-                        callback();
-                    } else {
-                        callback(new Error("电话号码格式不正确"));
-                    }
+                    callback(new Error("电话号码格式不正确"));
                 }
-            }, 100);
+            }
         };
         const checkPass = (rule, value, callback) => {
             if (!this.editJudge) {
@@ -37,18 +35,17 @@ export default {
             }
         };
         return {
-            showpassword: true,
-            judgeAddOrEdit: true,
-            loading: true,
-            editJudge: true,
-            disabled: false,
-            judge: false,
-            dialogVisible: false,
-            search: "",
-            currentPage: 1,
-            pageSize: 10,
-            total: 0,
-            tableData: [],
+            showpassword: true, // 是否显示密码
+            judgeAddOrEdit: true, // 判断是添加还是编辑状态 false 表示新增
+            loading: true, // 页面加载状态
+            editJudge: true, // 编辑验证判断
+            disabled: false, // 表单项是否禁用
+            dialogVisible: false, // 对话框是否可见
+            search: "", // 搜索关键词
+            currentPage: 1, // 当前页码
+            pageSize: 10, // 每页显示数量
+            total: 0, // 总记录数
+            tableData: [], // 表格数据
             form: {
                 username: "",
                 name: "",
@@ -109,11 +106,6 @@ export default {
     },
     created() {
         this.load();
-        this.loading = true;
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false;
-        }, 1000);
     },
     methods: {
         async load() {
@@ -156,13 +148,12 @@ export default {
                 this.editDisplay = {display: "none"};
                 this.disabled = false;
                 this.form = {};
-                this.judge = false;
             });
         },
         save() {
             this.$refs.form.validate((valid) => {
                 if (valid) {
-                    if (this.judge === false) {
+                    if (this.judgeAddOrEdit === false) {
                         //新增
                         request.post("/stu/add", this.form).then((res) => {
                             console.log(res);
@@ -228,9 +219,7 @@ export default {
         },
         handleEdit(row) {
             //修改
-            //判断操作类型
-            this.judge = true;
-            // 生拷贝
+            // 深拷贝
             this.dialogVisible = true;
             this.$nextTick(() => {
                 this.$refs.form.resetFields();

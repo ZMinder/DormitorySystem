@@ -135,6 +135,26 @@ export default {
                 this.load();
             });
         },
+        async init(data) {
+            // 初始化头像显示
+            if (data === null || data === "") {
+                console.log("用户未设置头像");
+                this.imgDisplay = {display: "none"};
+            } else {
+                this.imgDisplay = {display: "block"};
+                console.log("头像名称：" + data);
+                await request.get("/files/initAvatar/" + data).then((res) => {
+                    if (res.code === "0") {
+                        this.image = res.data.data; // 加载头像数据
+                    } else {
+                        ElMessage({
+                            message: res.msg,
+                            type: "error",
+                        });
+                    }
+                });
+            }
+        },
         Edit() {
             // 开启编辑模式，显示对话框
             this.dialogVisible = true;
@@ -188,26 +208,6 @@ export default {
                 this.showpassword = true; // 隐藏新密码输入
                 this.editJudge = true; // 退出编辑模式
                 this.disabled = true; // 禁用密码输入
-            }
-        },
-        async init(data) {
-            // 初始化头像显示
-            if (data === null || data === "") {
-                console.log("用户未设置头像");
-                this.imgDisplay = {display: "none"};
-            } else {
-                this.imgDisplay = {display: "block"};
-                console.log("头像名称：" + data);
-                await request.get("/files/initAvatar/" + data).then((res) => {
-                    if (res.code === "0") {
-                        this.image = res.data.data; // 加载头像数据
-                    } else {
-                        ElMessage({
-                            message: res.msg,
-                            type: "error",
-                        });
-                    }
-                });
             }
         },
         async uploadSuccess() {

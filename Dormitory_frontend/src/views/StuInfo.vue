@@ -11,7 +11,10 @@
         <div style="margin: 10px 0">
           <!--    搜索区-->
           <div style="margin: 10px 0">
-            <el-input v-model="search" clearable placeholder="请输入姓名" prefix-icon="Search"
+            <el-input v-model="search"
+                      clearable
+                      placeholder="请输入姓名"
+                      prefix-icon="Search"
                       style="width: 20%"/>
             <el-button icon="Search" style="margin-left: 5px" type="primary" @click="load"></el-button>
             <el-button icon="refresh-left" style="margin-left: 10px" type="default" @click="reset"></el-button>
@@ -27,15 +30,13 @@
           <el-table-column label="#" type="index"/>
           <el-table-column label="学号" prop="username" sortable/>
           <el-table-column label="姓名" prop="name"/>
-          <el-table-column
-              :filter-method="filterTag"
-              :filters="[
-              { text: '男', value: '男' },
-              { text: '女', value: '女' },
-            ]"
-              filter-placement="bottom-end"
-              label="性别"
-              prop="gender"
+          <el-table-column :filter-method="filterTag"
+                           :filters="[
+                                    { text: '男', value: '男' },
+                                    { text: '女', value: '女' },]"
+                           filter-placement="bottom-start"
+                           label="性别"
+                           prop="gender"
           />
           <el-table-column label="年龄" prop="age" sortable/>
           <el-table-column label="手机号" prop="phoneNum"/>
@@ -61,16 +62,23 @@
               :total="total"
               layout="total, sizes, prev, pager, next, jumper"
               @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-          >
+              @current-change="handleCurrentChange">
           </el-pagination>
         </div>
         <div>
           <!--      弹窗-->
-          <el-dialog v-model="dialogVisible" title="操作" width="30%" @close="cancel">
-            <el-form ref="form" :model="form" :rules="rules" label-width="120px">
+          <el-dialog v-model="dialogVisible"
+                     title="操作"
+                     width="30%"
+                     @close="cancel">
+            <el-form ref="form"
+                     :model="form"
+                     :rules="rules"
+                     label-width="120px">
               <el-form-item label="学号" prop="username">
-                <el-input v-model="form.username" :disabled="judgeAddOrEdit" style="width: 80%"></el-input>
+                <el-input v-model="form.username"
+                          :disabled="judgeAddOrEdit"
+                          style="width: 80%"/>
               </el-form-item>
               <el-form-item label="密码" prop="password">
                 <el-input v-model="form.password" :disabled="disabled" :show-password="showpassword"
@@ -83,8 +91,8 @@
                 </el-tooltip>
               </el-form-item>
               <el-form-item :style="display" label="确认密码" prop="checkPass">
-                <el-input v-model="form.checkPass" :show-password="showpassword" style="width: 80%"
-                ></el-input>
+                <el-input v-model="form.checkPass"
+                          :show-password="showpassword" style="width: 80%"/>
               </el-form-item>
               <el-form-item label="姓名" prop="name">
                 <el-input v-model="form.name" style="width: 80%"></el-input>

@@ -1,10 +1,8 @@
 <template>
-  <el-menu
-      :default-active="this.path"
-      router
-      style="width: 200px; height:100%; min-height: calc(100vh - 40px)"
-      unique-opened
-  >
+  <el-menu :default-active="this.path"
+           router
+           style="width: 200px; height:100%; min-height: calc(100vh - 40px)"
+           unique-opened>
     <div style="display: flex;align-items: center;justify-content: center;padding: 11px 0;">
       <img alt="" src="@/assets/logo.png" style="width: 60px;">
     </div>
@@ -105,7 +103,6 @@ export default {
           });
           sessionStorage.clear()
           request.get("/main/signOut");
-
         }
         window.sessionStorage.setItem("identity", JSON.stringify(res.data));
         this.identity = res.data
