@@ -58,15 +58,23 @@ export default {
 </script>
 
 <style scoped>
-.right-info {
-  width: 120px;
+.el-dropdown-link {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-right: 1.5%;
+  color: #333; /* 更深的字体颜色 */
 }
 
-.right-info:hover {
-  cursor: pointer;
+.right-info {
+  display: flex;
+  align-items: center;
+  margin-right: 20px; /* 添加一些右边距 */
+}
+
+.icon {
+  margin-right: 5px; /* 图标与文字之间的间距 */
+}
+
+div {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* 更改字体 */
 }
 </style>
