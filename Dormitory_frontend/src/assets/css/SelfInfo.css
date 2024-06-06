@@ -40,37 +40,3 @@
     height: 80px;
     margin: 40px auto; /* 水平居中 */
 }
-
-.login-container {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    display: flex; /* 使用 flexbox 实现内容居中 */
-    align-items: center; /* 垂直居中 */
-    justify-content: center; /* 水平居中 */
-    background: linear-gradient(
-            135deg,
-            hsl(170deg, 80%, 70%),
-            hsl(190deg, 80%, 70%),
-            hsl(250deg, 80%, 70%),
-            hsl(320deg, 80%, 70%),
-            hsl(320deg, 80%, 70%),
-            hsl(250deg, 80%, 70%),
-            hsl(190deg, 80%, 70%),
-            hsl(190deg, 80%, 70%),
-            hsl(170deg, 80%, 70%)
-    );
-    background-size: 600%;
-    animation: myanimation 15s linear infinite;
-}
-
-@keyframes myanimation {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 100% 100%;
-    }
-}

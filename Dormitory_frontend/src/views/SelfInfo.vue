@@ -6,7 +6,7 @@
     </el-breadcrumb>
     <el-card style="margin: 15px; min-height: calc(100vh - 111px)">
       <div style="display: flex">
-        <div style="width: 600px; margin-left: 30px; position: relative">
+        <div style="width: 600px; margin-left: 335px; position: relative ">
           <div>
             <el-upload :on-success="uploadSuccess" :show-file-list="false"
                        action="http://localhost:9090/files/upload/"
@@ -28,7 +28,8 @@
           <el-descriptions :column="1"
                            :size="large"
                            border
-                           style="min-width: 500px" title="">
+                           style="min-width: 500px;border: 1px solid #cccccc;"
+                           title="">
             <el-descriptions-item>
               <template #label>
                 <div>
@@ -97,7 +98,10 @@
             </el-descriptions-item>
           </el-descriptions>
           <el-tooltip content="修改信息" placement="bottom">
-            <el-button icon="Edit" size="large" style="margin-top: 30px; width: 80px" type="primary"
+            <el-button icon="Edit"
+                       size="large"
+                       style="margin-top: 30px; width: 80px; margin-left: 280px"
+                       type="primary"
                        @click="Edit">
             </el-button>
           </el-tooltip>
