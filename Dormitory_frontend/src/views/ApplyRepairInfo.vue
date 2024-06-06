@@ -7,17 +7,11 @@
     <el-card style="margin: 15px; min-height: calc(100vh - 111px)">
       <div>
         <!--    功能区-->
-        <div style="margin: 10px 0">
-          <!--    搜索区-->
-          <div style="margin: 10px 0">
-            <el-input v-model="search" clearable placeholder="请输入标题" prefix-icon="Search" style="width: 20%"/>
-            <el-button icon="Search" style="margin-left: 5px" type="primary" @click="load"></el-button>
-            <div style="float: right">
-              <el-tooltip content="添加" placement="top">
-                <el-button icon="plus" style="width: 50px" type="primary" @click="add"></el-button>
-              </el-tooltip>
-            </div>
-          </div>
+        <div style="margin: 10px 0; text-align: right">
+          <!-- 添加按钮放置于功能区右侧 -->
+          <el-tooltip content="添加" placement="top">
+            <el-button icon="plus" style="width: 50px" type="primary" @click="add"></el-button>
+          </el-tooltip>
         </div>
         <!--    表格-->
         <el-table v-loading="loading" :data="tableData" border max-height="705" style="width: 100%">
@@ -35,8 +29,7 @@
               filter-placement="bottom-end"
               label="订单状态"
               prop="state"
-              sortable
-          >
+              sortable>
             <template #default="scope">
               <el-tag :type="scope.row.state === '完成' ? 'success' : 'info'" disable-transitions
               >{{ scope.row.state }}
@@ -61,8 +54,7 @@
               :total="total"
               layout="total, sizes, prev, pager, next, jumper"
               @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-          >
+              @current-change="handleCurrentChange">
           </el-pagination>
         </div>
         <!--      弹窗-->

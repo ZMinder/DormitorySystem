@@ -34,11 +34,6 @@ export default {
         this.init()
         this.getInfo()
         this.load()
-        this.loading = true
-        setTimeout(() => {
-            //设置延迟执行
-            this.loading = false
-        }, 1000);
     },
     methods: {
         init() {

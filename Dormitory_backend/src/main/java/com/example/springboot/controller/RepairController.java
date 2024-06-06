@@ -85,17 +85,4 @@ public class RepairController {
             return Result.error("-1", "查询失败");
         }
     }
-
-    /**
-     * 首页顶部：报修统计
-     */
-    @GetMapping("/orderNum")
-    public Result<?> orderNum() {
-        int num = repairService.showOrderNum();
-        if (num >= 0) {
-            return Result.success(num);
-        } else {
-            return Result.error("-1", "报修统计查询失败");
-        }
-    }
 }
