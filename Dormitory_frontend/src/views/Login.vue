@@ -4,10 +4,16 @@
       <div class="login-title">登录</div>
       <el-form ref="form" :model="form" :rules="rules" size="large">
         <el-form-item prop="username">
-          <el-input v-model="form.username" clearable prefix-icon="el-icon-user"></el-input>
+          <el-input v-model="form.username"
+                    clearable
+                    prefix-icon="avatar"
+                    placeholder="请输入用户名"></el-input>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="form.password" prefix-icon="el-icon-lock" show-password></el-input>
+          <el-input v-model="form.password"
+                    prefix-icon="lock"
+                    show-password
+                    placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item :model="form" prop="identity">
           <el-radio v-model="form.identity" label="stu">学生</el-radio>
