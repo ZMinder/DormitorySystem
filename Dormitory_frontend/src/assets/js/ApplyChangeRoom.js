@@ -23,13 +23,21 @@ export default {
             }
         };
         const checkBedState = (rule, value, callback) => {
-            request.get("/room/checkBedState/" + this.dormRoomId + '/' + value).then((res) => {
-                if (res.code === "0") {
-                    callback();
-                } else {
-                    callback(new Error(res.msg));
-                }
-            });
+            if (!value) {
+                callback(new Error("请输入床位号"))
+            } else if (value < 1 || value > 4) {
+                callback(new Error("请在1-4中选择"))
+            } else if(!this.dormRoomId){
+                callback(new Error("请优先输入房间号"))
+            } else{
+                request.get("/room/checkBedState/" + this.dormRoomId + '/' + value).then((res) => {
+                    if (res.code === "0") {
+                        callback();
+                    } else {
+                        callback(new Error(res.msg));
+                    }
+                });
+            }
         };
         return {
             loading: true,

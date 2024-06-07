@@ -29,6 +29,7 @@ export default {
             return weatherConditions[code] || '未知天气状况';
         },
         async fetchWeatherData(latitude, longitude) {
+                console.log("weather")
             const url = `/weather-api/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
             try {
                 const response = await axios.get(url);
